@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 
-const LoginSceen = () => {
+const LoginSceen = ({navigation}) => {
   return (
     <>
       <View>
