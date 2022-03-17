@@ -14,10 +14,17 @@ import LoginSceen from './components/login';
 import LogoutScreen from './components/logout';
 import LogoTitle from './components/logoTitle';
 import {Button} from 'react-native';
+import SplashScreen from './components/splashScreen';
 
 const Stack = new createNativeStackNavigator();
 
+const isSignedIn = false;
+const isLoading = false;
+
 const App = () => {
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -30,33 +37,40 @@ const App = () => {
             fontWeight: 'bold',
           },
         }}>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={
-            ({navigation, route}) => ({
-              headerRight: props => (
-                <Button
-                  onPress={() => navigation.navigate('Logout')}
-                  title="Logout"
-                  // color="#fff"
-                />
-              ),
-            })
-            // title: 'CommCare Module Manager',
-            // headerTitle: props => <LogoTitle {...props} />,
-          }
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginSceen}
-          options={{title: 'Login'}}
-        />
-        <Stack.Screen
-          name="Logout"
-          component={LogoutScreen}
-          options={{title: 'Logout'}}
-        />
+        {isSignedIn ? (
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={
+                ({navigation, route}) => ({
+                  headerRight: props => (
+                    <Button
+                      onPress={() => navigation.navigate('Logout')}
+                      title="Logout"
+                      // color="#fff"
+                    />
+                  ),
+                })
+                // title: 'CommCare Module Manager',
+                // headerTitle: props => <LogoTitle {...props} />,
+              }
+            />
+            <Stack.Screen
+              name="Logout"
+              component={LogoutScreen}
+              options={{title: 'Logout'}}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginSceen}
+              options={{title: 'Login'}}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

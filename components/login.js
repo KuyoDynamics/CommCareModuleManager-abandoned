@@ -13,7 +13,7 @@ const LoginSceen = ({navigation}) => {
           id="password"
           name="password"
         />
-        <Button>Login</Button>
+        <Button title="Login"/>
       </View>
     </>
   );
