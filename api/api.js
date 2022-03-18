@@ -3,8 +3,9 @@ import * as SecureStore from 'expo-secure-store';
 
 const baseUrl = 'https://www.commcarehq.org/a/mira-rfms/api/v0.5/';
 
-const addAuthHeader = headers => {
-  const token = SecureStore.getItemAsync('token');
+const addAuthHeader = async headers => {
+  const token = await SecureStore.getItemAsync('token');
+  console.log('Chaiwa, what is the token?', token);
   return {
     ...headers,
     Accept: 'application/json',
@@ -25,12 +26,14 @@ const singleSignOn = async ({username, password}) => {
 };
 
 const getApp = async appId => {
-  const response = await fetch(baseUrl + appId, {
-    headers: {
-      ...addAuthHeader(),
-    },
+  const headers = await addAuthHeader({});
+  console.log('Chaiwa, what is Headers?', headers);
+  const response = await fetch(baseUrl + `application/${appId}`, {
+    method: 'GET',
+    headers,
   });
+  console.log('Chaiwa, what is response from getApp?', response);
   return response.json();
 };
 
-export {singleSignOn};
+export {singleSignOn, getApp};

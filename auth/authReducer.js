@@ -13,16 +13,16 @@ function reducer(prevState, action) {
       console.log('Chaiwa RESTORE_TOKEN was dispatched, user:', action.user);
       return {
         ...prevState,
-        user: action.user,
+        user: JSON.parse(action.user),
         isLoading: false,
       };
     case 'LOG_IN':
-      console.log('Chaiwa LOG_IN was dispatched');
+      console.log('Chaiwa LOG_IN was dispatched, with user:', action.user);
       return {
         ...prevState,
         isSignout: false,
         loginFailed: false,
-        user: action.user,
+        user: JSON.parse(action.user),
       };
     case 'LOG_OUT':
       console.log('Chaiwa LOG_OUT was dispatched');

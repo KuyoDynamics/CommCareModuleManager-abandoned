@@ -10,6 +10,8 @@ const LoginScreen = ({navigation}) => {
 
   const {logIn, state} = useContext(AuthContext);
 
+  const {loginFailed} = state;
+
   return (
     <>
       <SafeAreaView>
@@ -29,7 +31,7 @@ const LoginScreen = ({navigation}) => {
         />
         <Button title="Login" onPress={() => logIn({username, password})} />
         <Toast
-          visible={state.loginFailed}
+          visible={loginFailed}
           message="Login Failed. Please check your credentials and try again!"
         />
       </SafeAreaView>
