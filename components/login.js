@@ -1,20 +1,33 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {Text, TextInput, Button} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {AuthContext} from '../App';
 
 const LoginSceen = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const {logIn} = useContext(AuthContext);
+
   return (
     <>
-      <View>
+      <SafeAreaView>
         <Text>Login</Text>
-        <TextInput placeholder="username" id="username" name="username" />
+        <TextInput
+          placeholder="username"
+          id="username"
+          name="username"
+          onChangeText={setUsername}
+        />
         <TextInput
           secureTextEntry={true}
           placeholder="password"
           id="password"
           name="password"
+          onChangeText={setPassword}
         />
-        <Button title="Login"/>
-      </View>
+        <Button title="Login" onPress={() => logIn({username, password})} />
+      </SafeAreaView>
     </>
   );
 };

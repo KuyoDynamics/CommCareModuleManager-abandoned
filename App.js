@@ -6,73 +6,87 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {createContext, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './components/home';
 import LoginSceen from './components/login';
 import LogoutScreen from './components/logout';
-import LogoTitle from './components/logoTitle';
 import {Button} from 'react-native';
 import SplashScreen from './components/splashScreen';
+import {useAuthContext} from './auth/authProvider';
+import {bootstrapAsync} from './auth/authActions';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+export const AuthContext = createContext({});
 
 const Stack = new createNativeStackNavigator();
 
-const isSignedIn = false;
-const isLoading = false;
-
 const App = () => {
-  if (isLoading) {
+  const context = useAuthContext();
+  const {state, dispatch} = context;
+  console.log('Chaiwa, what is state?', state);
+
+  useEffect(() => {
+    bootstrapAsync(dispatch);
+  }, [dispatch]);
+
+  if (state.isLoading) {
     return <SplashScreen />;
   }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#7393B3',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}>
-        {isSignedIn ? (
-          <>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={
-                ({navigation, route}) => ({
-                  headerRight: props => (
-                    <Button
-                      onPress={() => navigation.navigate('Logout')}
-                      title="Logout"
-                      // color="#fff"
-                    />
-                  ),
-                })
-                // title: 'CommCare Module Manager',
-                // headerTitle: props => <LogoTitle {...props} />,
-              }
-            />
-            <Stack.Screen
-              name="Logout"
-              component={LogoutScreen}
-              options={{title: 'Logout'}}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Login"
-              component={LoginSceen}
-              options={{title: 'Login'}}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={context}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#7393B3',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}>
+            {state.userToken != null ? (
+              <>
+                <Stack.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={
+                    ({navigation, route}) => ({
+                      headerRight: props => (
+                        <Button
+                          onPress={() => navigation.navigate('Logout')}
+                          title="Logout"
+                          // color="#fff"
+                        />
+                      ),
+                    })
+                    // title: 'CommCare Module Manager',
+                    // headerTitle: props => <LogoTitle {...props} />,
+                  }
+                />
+                <Stack.Screen
+                  name="Logout"
+                  component={LogoutScreen}
+                  options={{title: 'Logout'}}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="Login"
+                  component={LoginSceen}
+                  options={{title: 'Login'}}
+                />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </AuthContext.Provider>
   );
 };
 

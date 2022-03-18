@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function LogoutScreen({navigation}) {
   return (
     <>
-      <View>
+      <SafeAreaView>
         <Text>Are you sure?</Text>
-      </View>
+      </SafeAreaView>
     </>
   );
 }
