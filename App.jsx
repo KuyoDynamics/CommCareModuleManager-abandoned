@@ -15,7 +15,7 @@ import LogoutScreen from './components/logout';
 import {Button} from 'react-native';
 import SplashScreen from './components/splashScreen';
 import {useAuthContext} from './auth/authProvider';
-import {bootstrapAsync} from './auth/authActions';
+import {bootstrapAsync, logOut} from './auth/authActions';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const AuthContext = createContext({});
@@ -29,7 +29,7 @@ const App = () => {
 
   useEffect(() => {
     bootstrapAsync(dispatch);
-  }, [dispatch]);
+  }, []);
 
   if (state.isLoading) {
     return <SplashScreen />;
@@ -49,7 +49,7 @@ const App = () => {
                 fontWeight: 'bold',
               },
             }}>
-            {state.userToken != null ? (
+            {state.user != null ? (
               <>
                 <Stack.Screen
                   name="Home"
@@ -58,7 +58,7 @@ const App = () => {
                     ({navigation, route}) => ({
                       headerRight: props => (
                         <Button
-                          onPress={() => dispatch({type: 'LOG_OUT'})}
+                          onPress={() => logOut(dispatch)}
                           title="Logout"
                           // color="#fff"
                         />

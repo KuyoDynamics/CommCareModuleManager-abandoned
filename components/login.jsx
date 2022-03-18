@@ -2,12 +2,13 @@ import React, {useState, useContext} from 'react';
 import {Text, TextInput, Button} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AuthContext} from '../App';
+import Toast from '../utils/toast';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const {logIn} = useContext(AuthContext);
+  const {logIn, state} = useContext(AuthContext);
 
   return (
     <>
@@ -27,6 +28,10 @@ const LoginScreen = ({navigation}) => {
           onChangeText={setPassword}
         />
         <Button title="Login" onPress={() => logIn({username, password})} />
+        <Toast
+          visible={state.loginFailed}
+          message="Login Failed. Please check your credentials and try again!"
+        />
       </SafeAreaView>
     </>
   );
