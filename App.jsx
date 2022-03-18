@@ -10,7 +10,7 @@ import React, {createContext, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './components/home';
-import LoginSceen from './components/login';
+import LoginScreen from './components/login';
 import LogoutScreen from './components/logout';
 import {Button} from 'react-native';
 import SplashScreen from './components/splashScreen';
@@ -58,7 +58,7 @@ const App = () => {
                     ({navigation, route}) => ({
                       headerRight: props => (
                         <Button
-                          onPress={() => navigation.navigate('Logout')}
+                          onPress={() => dispatch({type: 'LOG_OUT'})}
                           title="Logout"
                           // color="#fff"
                         />
@@ -78,7 +78,7 @@ const App = () => {
               <>
                 <Stack.Screen
                   name="Login"
-                  component={LoginSceen}
+                  component={LoginScreen}
                   options={{title: 'Login'}}
                 />
               </>

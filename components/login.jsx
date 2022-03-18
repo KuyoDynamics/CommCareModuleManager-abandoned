@@ -3,7 +3,7 @@ import {Text, TextInput, Button} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {AuthContext} from '../App';
 
-const LoginSceen = ({navigation}) => {
+const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -32,4 +32,4 @@ const LoginSceen = ({navigation}) => {
   );
 };
 
-export default LoginSceen;
+export default LoginScreen;
