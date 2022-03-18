@@ -16,7 +16,6 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      {/* <Text>Home Screen</Text> */}
       {state.isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : null}
