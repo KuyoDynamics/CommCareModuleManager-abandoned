@@ -17,6 +17,8 @@ import SplashScreen from './components/splashScreen';
 import {useAuthContext} from './auth/authProvider';
 import {bootstrapAsync, logOut} from './auth/authActions';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import AppModuleDetails from './components/appModuleDetails';
+import AppStructure from './components/appStructure';
 
 export const AuthContext = createContext({});
 
@@ -72,6 +74,16 @@ const App = () => {
                   name="Logout"
                   component={LogoutScreen}
                   options={{title: 'Logout'}}
+                />
+                <Stack.Screen
+                  name="AppModuleDetails"
+                  component={AppModuleDetails}
+                  options={{title: 'Module Details'}}
+                />
+                <Stack.Screen
+                  name="AppStructure"
+                  component={AppStructure}
+                  // options={{title: 'Module Details'}}
                 />
               </>
             ) : (
