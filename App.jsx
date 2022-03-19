@@ -26,8 +26,8 @@ const Stack = new createNativeStackNavigator();
 
 const App = () => {
   const context = useAuthContext();
+
   const {state, dispatch} = context;
-  console.log('Chaiwa, what is state?', state);
 
   useEffect(() => {
     bootstrapAsync(dispatch);

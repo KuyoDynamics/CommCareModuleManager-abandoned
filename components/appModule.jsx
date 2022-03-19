@@ -4,7 +4,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CardView from './card';
 
 export default function AppModule({navigation, module}) {
-  console.log('Chaiwa, what is in navigation?', navigation);
   const [isEnabled, setIsEnabled] = useState(false);
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);

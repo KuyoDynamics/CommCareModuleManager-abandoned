@@ -31,7 +31,6 @@ function getModules(app) {
 
 export default function AppStructure({navigation, app}) {
   const data = getModules(app);
-  console.log('Modules in AppStructure', data);
 
   const renderItem = ({item}) => (
     <AppModule module={item} navigation={navigation} />
