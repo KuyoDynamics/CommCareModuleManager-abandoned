@@ -40,6 +40,7 @@ export default function AppModule({navigation, module}) {
               onValueChange={() => toggleSwitch()}
               value={isEnabled}
             />
+
             <Text>{formCount}</Text>
             <Text>{totalFormsOn}</Text>
             <Text>{totalFormsOff}</Text>
