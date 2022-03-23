@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {ActivityIndicator} from 'react-native';
 import {loadApp} from '../data/apps/appActions';
 import useAppReducer from '../data/apps/appReducer';
 import AppStructure from './appStructure';
-import {Skeleton, LinearProgress} from '@react-native-elements/themed';
+import {LinearProgress} from '@react-native-elements/themed';
+import AppModuleHeader from './header';
 
 const HomeScreen = ({navigation}) => {
   const [appId, setAppId] = useState('9171fd53513e4637b07ab4956bdd19df');
@@ -18,6 +18,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <SafeAreaView>
+      <AppModuleHeader />
       {state.isLoading && (
         <>
           <LinearProgress color="red" />
